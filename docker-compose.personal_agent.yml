@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  personal_agent:
+    build: ./personal_agent
+    container_name: personal_agent
+    restart: none
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./personal_agent:/app/personal_agent
+    env_file:
+      - .env
