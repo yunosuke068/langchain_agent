@@ -20,3 +20,6 @@ RUN apt-get install -y vim less
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
 RUN pip install -r requirements.txt --no-cache-dir
+
+# アプリ起動
+CMD ["streamlit", "run", "discussion_agent_streamlit.py", "--server.port=8501", "--server.address=0.0.0.0"]

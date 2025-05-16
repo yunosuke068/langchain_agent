@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 langchain = "^0.3.24"
 langchain-openai = "^0.3.14"
+streamlit = "^1.45.1"
 
 
 [build-system]

@@ -88,7 +88,7 @@ if __name__ == "__main__":
         log_chat(log_path, "user", "ユーザー", user_input)
 
         # 会話ターン数
-        num_turns = len(character_defs) *2  # 各エージェントが2回発言する場合
+        num_turns = len(character_defs) *1  # 各エージェントが2回発言する場合
         for turn in range(num_turns):
             # 次に誰が話すかを決める
             try:
@@ -112,7 +112,7 @@ if __name__ == "__main__":
                     "chat_history": chat_history
                 })
                 print(f"🤖 {next_agent_name}> {result['text']}")
-                chat_history.append({"role": "assistant", "name": next_agent_name, "content": result["text"]})
+                chat_history.append({"role": "assistant", "name": next_agent_name, "content": next_agent_name+": "+result["text"]})
                 log_chat(log_path, "assistant", next_agent_name, result["text"])
             except Exception as e:
                 print(f"⚠️ {next_agent_name}の発言エラー: {e}")
