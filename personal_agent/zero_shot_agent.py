@@ -62,8 +62,8 @@ def external_search_api(
             SystemMessage(content="以下の検索結果を、ユーザーの質問に関連するポイントを絞って要約してください。"),
             HumanMessagePromptTemplate.from_template("ユーザー質問: {query}\n検索結果:\n{summaries}")
         ])
-        summary_chain = LLMChain(llm=llm, prompt=prompt)
-        summary = summary_chain.invoke({"query": query, "summaries": summaries})["text"]
+        summary_chain = prompt | llm
+        summary = summary_chain.invoke({"query": query, "summaries": summaries}).content
 
         return summary
 
@@ -90,12 +90,12 @@ for name, cfg in agent_definitions.items():
             SystemMessage(content=cfg["system_prompt"]),
             HumanMessagePromptTemplate.from_template("{input}")
         ])
-        chain = LLMChain(llm=llm, prompt=prompt)
+        chain = prompt | llm
 
         def make_tool(chain):
             return Tool(
                 name=name,
-                func=lambda x: chain.invoke({"input": x})["text"],
+                func=lambda x: chain.invoke({"input": x}).content,
                 description=cfg["description"]
             )
 
